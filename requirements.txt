@@ -1,0 +1,8 @@
+pytest
+pytest-playwright
+pytest-xdist
+requests
+psycopg2-binary
+python-dotenv
+allure-pytest
+faker
