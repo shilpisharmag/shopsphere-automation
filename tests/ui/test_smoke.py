@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 
+# Scenario: Verify the Playwright homepage loads with the logo and Get started link visible.
 def test_playwright_homepage(page:Page):
     page.goto("https://playwright.dev/")
     expect(page.
