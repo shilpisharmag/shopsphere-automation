@@ -7,11 +7,15 @@ class CartPage:
         self.page = page
         self.backpack = self.page.get_by_text("Sauce Labs Backpack")
         self.badge = self.page.locator('[data-test="shopping-cart-badge"]')
+        self.bike_light = self.page.get_by_text("Sauce Labs Bike light")
         self.removeBackpack = self.page.locator('[data-test="remove-sauce-labs-backpack"]')
         
 
     def verify_backpack_added(self):
         expect(self.backpack).to_be_visible()
+
+    def verify_bike_light_added(self):
+            expect(self.bike_light).to_be_visible()
 
     def verify_the_badgeCount(self,count:str):
          expect(self.badge).to_have_text(count)
