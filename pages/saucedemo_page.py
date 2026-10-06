@@ -1,10 +1,10 @@
 from playwright.sync_api import Page,expect
-import pytest
+from config.settings import BASE_URL
 
 class SauceDemoPage:
     def __init__(self,page:Page):
         self.page = page
-        self.url = "https://www.saucedemo.com"
+        self.url = BASE_URL
         # self.username = "standard_user"
         # self.password = "secret_sauce"
         self.usernamefield = self.page.get_by_placeholder("Username")

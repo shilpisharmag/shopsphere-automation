@@ -24,7 +24,13 @@ def test_add_multiple_prodcut_tocart(logged_in_page):
     product_page = ProductPage(logged_in_page)
     product_page.verify_product_page()
     product_page.add_multi_products(product_items)
-    
+
+
+pytest.mark.ui
+pytest.mark.smoke
+def test_verify_productCount(logged_in_page):
+    product_page = ProductPage(logged_in_page)
+    product_page.verify_product_count(6)
 
 
 

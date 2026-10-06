@@ -9,7 +9,7 @@ class ProductPage:
         # self.bike_light = self.page.locator('[data-test = "add-to-cart-sauce-labs-bike-light"]')
         # self.bolt_tshirt = self.page.locator('[data-test = "add-to-cart-sauce-labs-bolt-t-shirt"]')
         # self.fleece_jacket =self.page.locator('[data-test = "add-to-cart-sauce-labs-fleece-jacket]')
-
+        self.prodcuts = self.page.locator(".inventory_item")
         self.product_items = { 
             "backpack" : self.page.locator('[data-test="add-to-cart-sauce-labs-backpack"]'),
             "bike_light" : self.page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]'),
@@ -35,4 +35,6 @@ class ProductPage:
         for key in product_keys:
             self.product_items[key].click()
 
+    def verify_product_count(self, expected_count:int):
+        expect(self.prodcuts).to_have_count(expected_count)
 
