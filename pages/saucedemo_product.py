@@ -26,6 +26,7 @@ class ProductPage:
         expect(self.product_title).to_be_visible()
 
     def add_first_product(self):
+        print("Adding first product")
         self.backpack.click()
 
     def open_cart(self):

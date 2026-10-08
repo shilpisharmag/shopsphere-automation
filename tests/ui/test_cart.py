@@ -52,6 +52,15 @@ def test_add_RemoveProduct(logged_in_page):
     cart_page.verify_the_cartItem("backpack")
     cart_page.removeProduct_fromCart()
 
+@pytest.mark.ui
+@pytest.mark.smoke
+def test_add_backpack_verify_cart(authenticated_page):
+    product_page = ProductPage(authenticated_page)
+    product_page.add_first_product()
+    product_page.open_cart()
+    cartpage = CartPage(authenticated_page)
+    cartpage.verify_backpack_added()
+
 
 
 

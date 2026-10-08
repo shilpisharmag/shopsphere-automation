@@ -9,6 +9,7 @@ class CartPage:
         self.badge = self.page.locator('[data-test="shopping-cart-badge"]')
         self.bike_light = self.page.get_by_text("Sauce Labs Bike light")
         self.removeBackpack = self.page.locator('[data-test="remove-sauce-labs-backpack"]')
+        self.checkout_button = self.page.get_by_role("button", name = "checkout")
         
 
     def verify_backpack_added(self):
@@ -33,3 +34,8 @@ class CartPage:
         # self.verify_backpack_added()
         self.removeBackpack.click()
         expect(self.page.get_by_text("backpack")).not_to_be_visible()
+
+    def checkout(self):
+         self.checkout_button.click()
+         
+         

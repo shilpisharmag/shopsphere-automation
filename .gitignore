@@ -6,4 +6,5 @@ test_results/
 reports/
 allire-results/
 allure-report/
+playwright/.auth/user.json
 
