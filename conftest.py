@@ -3,6 +3,8 @@ from pages.saucedemo_page import SauceDemoPage
 from data.users import STANDARD_USER
 from pathlib import Path
 from config.settings import BASE_URL
+from api.api_client import APIClient
+from config.settings import API_URL
 
 AUTH_FILE= Path("playwright/.auth/user.json")
 # AUTH_FILE = (
@@ -43,3 +45,11 @@ def authenticated_page(browser):
     print(f"DEBUG: landed on {page.url}")   # temporary
     yield page
     context.close()
+
+@pytest.fixture
+def api_client():
+    return APIClient(
+        base_url=API_URL,
+        headers={
+            "Accept":"application/json"
+        })

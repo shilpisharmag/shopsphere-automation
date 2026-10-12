@@ -29,3 +29,5 @@ BASE_URL = config["base_url"]
 
 STANDARD_USERNAME = os.getenv("STANDARD_USERNAME")
 STANDARD_PASSWORD = os.getenv("STANDARD_PASSWORD")
+
+API_URL = os.getenv("API_URL","https://jsonplaceholder.typicode.com")
