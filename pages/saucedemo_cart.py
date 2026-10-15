@@ -14,6 +14,10 @@ class CartPage:
 
     def verify_backpack_added(self):
         expect(self.backpack).to_be_visible()
+       
+
+    def verify_backpack_count(self, count):
+        expect(self.backpack).to_have_count(count)
 
     def verify_bike_light_added(self):
             expect(self.bike_light).to_be_visible()

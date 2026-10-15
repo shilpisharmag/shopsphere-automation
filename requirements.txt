@@ -7,3 +7,4 @@ python-dotenv
 allure-pytest
 faker
 jsonschema
+flask

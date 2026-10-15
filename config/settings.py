@@ -31,3 +31,5 @@ STANDARD_USERNAME = os.getenv("STANDARD_USERNAME")
 STANDARD_PASSWORD = os.getenv("STANDARD_PASSWORD")
 
 API_URL = os.getenv("API_URL","https://jsonplaceholder.typicode.com")
+SHOPSPHERE_API_URL = os.getenv("SHOPSPHERE_API_URL","http://127.0.0.1:5000")
+SHOPSPHERE_UI_URL =  os.getenv("SHOPSPHERE_UI_URL","http://127.0.0.1:5000")

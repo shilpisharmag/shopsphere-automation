@@ -5,6 +5,7 @@ from pathlib import Path
 from config.settings import BASE_URL
 from api.api_client import APIClient
 from config.settings import API_URL
+from config.settings import SHOPSPHERE_API_URL
 
 AUTH_FILE= Path("playwright/.auth/user.json")
 # AUTH_FILE = (
@@ -53,3 +54,44 @@ def api_client():
         headers={
             "Accept":"application/json"
         })
+@pytest.fixture
+def shopsphere_api_client():
+    return APIClient(
+        base_url=SHOPSPHERE_API_URL,
+        headers={
+            "Accept":"application/json"
+        })
+
+@pytest.fixture
+def validated_post(api_client):
+    response = api_client.get(f"posts/1")
+    assert response.status_code == 200
+    post = response.json()
+
+    assert post["id"] == 1
+    assert isinstance(post["title"], str)
+    assert post["title"].strip() != ""
+    assert isinstance(post["body"], str)
+    assert post["body"].strip() != ""
+
+    return post
+
+@pytest.fixture
+def integeration_setup(api_client,authenticated_page):
+    return {
+        "api_client": api_client,
+        "page": authenticated_page
+    }
+
+@pytest.fixture
+def validated_multi_post(api_client,request):
+    post_id = request.param
+    response = api_client.get(f"posts/{post_id}")
+    post = response.json()
+    assert post["id"] == post_id
+    assert isinstance(post["title"], str)
+    assert post["title"].strip() != ""
+    assert isinstance(post["body"], str)
+    assert post["body"].strip() != ""
+
+    return post  

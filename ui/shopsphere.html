@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset ="UTF-8">
+        <title>ShopSphere</title>
+    </head>
+    <body>
+        <h1> ShopSphere Products</h1>
+        <div id="products">Loading products...</div>
+        <script>
+            async function loadProducts() {
+                const container = document.getElementById("products");
+                //const response = await fetch("http://127.0.0.1:5000/products");
+                try{
+                        const response = await fetch("/products");
+                        if(!response.ok){
+                            throw new Error(`HTTP error: ${response.status}`);
+                        }
+                        const products = await response.json();
+                        console.log("product response:",products);
+                        console.log("is array:",Array.isArray(products));
+                        container.innerHTML = products.map(product => `
+                        <div class = "product"
+                        data-product-id="${product.id}")>
+                        <h2>${product.name}</h2>
+                        <p class ="price">${product.price}</p>
+                        <p class ="stock">${product.stock}</p></div>`).join("");
+                }
+                catch(error)
+                {
+                    container.textContent = `Failed to load Products: ${error.message}`;
+                    print(error.message);
+                    console.error(error);
+                }
+                
+            }
+            loadProducts();
+        </script>
+    </body>
+</html>
