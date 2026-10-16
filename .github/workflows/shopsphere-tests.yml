@@ -4,15 +4,16 @@ on:
         branches: [main]
     pull_request:
         branches: [main]
+    workflow_dispatch:
 jobs:
     api_and_ui-tests:
         runs-on: ubuntu-latest
         steps:
             - name: checkout repository
-              users: actions/checkout@v4
+              uses: actions/checkout@v4
 
             - name: Set up python
-              users: actions/setup-python@v5
+              uses: actions/setup-python@v5
               with:
                 python-version: "3.12"
             
@@ -22,6 +23,9 @@ jobs:
                pip install -r requirements.txt
                pip install -r api/requirements.txt
                python -m playwright install --with-deps chromium
+
+            - name: Generate SauceDemo Authenticate state
+              run: python -m tests.auth.setup_auth
             
             - name: Start Shopsphere API
               run: |

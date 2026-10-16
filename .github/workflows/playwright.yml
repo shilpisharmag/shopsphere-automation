@@ -30,6 +30,10 @@ jobs:
             - name: Install Playwright
               run: |
                python -m playwright install --with-deps
+
+            - name: Generate SauceDemo Authenticate state
+              run: python -m tests.auth.setup_auth
+
             
             - name: Run Tests
               run:
