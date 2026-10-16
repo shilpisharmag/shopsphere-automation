@@ -25,6 +25,9 @@ jobs:
                python -m playwright install --with-deps chromium
 
             - name: Generate SauceDemo Authenticate state
+              env:
+                 STANDARD_USERNAME: ${{secrets.STANDARD_USERNAME}}
+                 STANDARD_PASSWORD: ${{secrets.STANDARD_PASSWORD}}
               run: python -m tests.auth.setup_auth
             
             - name: Start Shopsphere API
