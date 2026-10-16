@@ -37,8 +37,25 @@ jobs:
                  STANDARD_PASSWORD: ${{secrets.STANDARD_PASSWORD}}
               run: python -m tests.auth.setup_auth
 
+            - name: Start Shopsphere API
+              run: |
+               nohup python api/app.py > shopsphere.log 2>&1 &
+               for i in {1..30}; do
+                  if curl -fsS http://127.0.0.1:5000/health; then
+                     break
+                  fi
+                   sleep 2
+                done
+                curl -fsS http://127.0.0.1:5000/health
+
+
             
             - name: Run Tests
+              env:
+                SHOPSPHERE_API_URL: http://127.0.0.1:5000
+                SHOPSPHERE_UI_URL: http://127.0.0.1:5000
+                STANDARD_USERNAME: ${{secrets.STANDARD_USERNAME}}
+                STANDARD_PASSWORD: ${{secrets.STANDARD_PASSWORD}}
               run:
                 pytest
 

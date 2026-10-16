@@ -6,6 +6,7 @@ from config.settings import BASE_URL
 from api.api_client import APIClient
 from config.settings import API_URL
 from config.settings import SHOPSPHERE_API_URL
+from config.settings import STANDARD_USERNAME,STANDARD_PASSWORD
 
 AUTH_FILE= Path("playwright/.auth/user.json")
 # AUTH_FILE = (
@@ -27,8 +28,8 @@ def logged_in_page(page):
     login_page = SauceDemoPage(page)
     login_page.open_sauce_webpage()
     login_page.do_login(
-        STANDARD_USER["username"],
-        STANDARD_USER["password"],
+        STANDARD_USERNAME,
+        STANDARD_PASSWORD,
     )
 
     login_page.verify_login_success()
