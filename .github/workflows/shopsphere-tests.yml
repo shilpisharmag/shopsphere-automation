@@ -42,7 +42,7 @@ jobs:
                 shopsphere-api:1.0
                for i in {1..30}; do
                    if curl -fsS http://127.0.0.1:5001/health; then
-                    echo "ShopSphere" Docker Container is ready"
+                    echo "ShopSphere Docker Container is ready"
                     exit 0
                    fi
                     sleep 2
