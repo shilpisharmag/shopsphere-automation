@@ -70,7 +70,7 @@ jobs:
               run: |
                pytest tests/api/test_shopsphere_api.py -v \
                -v \
-               --alluredir-allure-results \
+               --alluredir=allure-results \
                --clean-alluredir
             
             - name: Run Shopsphere Integration tests
@@ -82,7 +82,7 @@ jobs:
               run: |
                pytest tests/integration/ -v \
                -v \
-               --alluredir-allure-results \
+               --alluredir=allure-results \
                --clean-alluredir
                
             - name: Upload Allure results
