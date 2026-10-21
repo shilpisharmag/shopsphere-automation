@@ -68,7 +68,10 @@ jobs:
                 # SHOPSPHERE_API_URL: http://127.0.0.1:5000
                 SHOPSPHERE_API_URL: http://127.0.0.1:5001 # for Docker test
               run: |
-               pytest tests/api/test_shopsphere_api.py -v
+               pytest tests/api/test_shopsphere_api.py -v \
+               -v \
+               --alluredir-allure-results \
+               --clean-alluredir
             
             - name: Run Shopsphere Integration tests
               env:
@@ -77,6 +80,17 @@ jobs:
                 SHOPSPHERE_API_URL: http://127.0.0.1:5001
                 SHOPSPHERE_UI_URL: http://127.0.0.1:5001
               run: |
-               pytest tests/integration/ -v
+               pytest tests/integration/ -v \
+               -v \
+               --alluredir-allure-results \
+               --clean-alluredir
                
+            - name: Upload Allure results
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                name: allure-results
+                path: allure-results/
+                if-no-files-found: warn
+                retention-days: 14
 

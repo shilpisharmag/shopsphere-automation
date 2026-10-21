@@ -4,7 +4,8 @@ __pycache__
 .pytest_cache/
 test_results/
 reports/
-allire-results/
+allure-results/
 allure-report/
 playwright/.auth/user.json
+
 
