@@ -29,28 +29,53 @@ jobs:
                  STANDARD_USERNAME: ${{secrets.STANDARD_USERNAME}}
                  STANDARD_PASSWORD: ${{secrets.STANDARD_PASSWORD}}
               run: python -m tests.auth.setup_auth
-            
-            - name: Start Shopsphere API
+
+            - name: Build Shopsphere Docker image
+              run: docker build -t shopsphere-api:1.0 .
+
+            - name: Start Shopsphere container
+              shell: bash
               run: |
-               nohup python api/app.py > shopsphere.log 2>&1 &
+               dokcer run -d \
+                --name shopsphere-api \
+                -p 5001:5000 \
+                shopsphere-api:1.0
                for i in {1..30}; do
-                  if curl -fsS http://127.0.0.1:5000/health; then
-                     break
-                  fi
-                   sleep 2
+                   if curl -fsS http://127.0.0.1:5001/health; then
+                    echo "ShopSphere" Docker Container is ready"
+                    exit 0
+                   fi
+                    sleep 2
                 done
-                curl -fsS http://127.0.0.1:5000/health
+                echo "ShopSphere container failed to start"
+                docker logs shopsphere-api
+                exit 1
+            #       if curl -fsS http://127.0.0.1:5000/health; then
+            
+            # - name: Start Shopsphere API  
+            #   run: |
+            #    nohup python api/app.py > shopsphere.log 2>&1 &
+            #    for i in {1..30}; do
+            #       if curl -fsS http://127.0.0.1:5000/health; then
+            #          break
+            #       fi
+            #        sleep 2
+            #     done
+            #     curl -fsS http://127.0.0.1:5000/health
 
             - name: Run ShopSphere API tests
               env: 
-                SHOPSPHERE_API_URL: http://127.0.0.1:5000
+                # SHOPSPHERE_API_URL: http://127.0.0.1:5000
+                SHOPSPHERE_API_URL: http://127.0.0.1:5001 # for Docker test
               run: |
                pytest tests/api/test_shopsphere_api.py -v
             
             - name: Run Shopsphere Integration tests
               env:
-                SHOPSPHERE_API_URL: http://127.0.0.1:5000
-                SHOPSPHERE_UI_URL: http://127.0.0.1:5000
+                #SHOPSPHERE_API_URL: http://127.0.0.1:5000
+                #SHOPSPHERE_UI_URL: http://127.0.0.1:5000
+                SHOPSPHERE_API_URL: http://127.0.0.1:5001
+                SHOPSPHERE_UI_URL: http://127.0.0.1:5001
               run: |
                pytest tests/integration/ -v
                
