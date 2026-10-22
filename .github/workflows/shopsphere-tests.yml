@@ -96,7 +96,7 @@ jobs:
               shell: bash
               run: |
                if [ -d allure-results ] && \
-                  [-n "$(find allure-results -type f -print -quit)"]: then
+                  [ -n "$(find allure-results -type f -print -quit)" ]; then
                    npx --yes allure generate allure-results
                else
                  echo "No Allure results found; skipping report generation."
