@@ -9,3 +9,5 @@ allure-report/
 playwright/.auth/user.json
 
 
+__pycache__/
+*.pyc

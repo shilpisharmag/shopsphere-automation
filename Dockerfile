@@ -2,7 +2,7 @@ FROM python:3.12-slim
 WORKDIR /app
 COPY api/requirements.txt /app/api/requirements.txt
 
-RUN pip install --no-cache-dir -r /app/api/requirements.txt
+RUN pip install --no-cache-dir --retries 5 --timeout 60 -r /app/api/requirements.txt
 
 COPY api/ /app/api/
 COPY ui/ /app/ui/

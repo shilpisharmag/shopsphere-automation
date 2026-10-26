@@ -45,6 +45,10 @@ def getproduct(product_id):
             return jsonify(product), 200
     return jsonify({"error": "Product not found"}), 404
 
+@app.errorhandler(404)
+def handle_not_found(error):
+    return jsonify({"error": "Not Found"}), 404
+
 
 if __name__ == "__main__":
     host = os.getenv("FLASK_HOST","127.0.0.1")
