@@ -2,24 +2,24 @@ from flask import Flask,jsonify
 from flask import send_from_directory
 from pathlib import Path
 import os
-
+from database.db import get_all_products, get_product_by_id
 app = Flask(__name__)
 
-products = [
-    {
-        "id" : 1,
-        "name" : "Laptop",
-        "price" : 75000,
-        "stock" : 10,
+# products = [
+#     {
+#         "id" : 1,
+#         "name" : "Laptop",
+#         "price" : 75000,
+#         "stock" : 10,
 
-    },
-    {
-        "id" : 2,
-        "name" : "Headphones",
-        "price" : 2500,
-        "stock" : 20
-    }
-]
+#     },
+#     {
+#         "id" : 2,
+#         "name" : "Headphones",
+#         "price" : 2500,
+#         "stock" : 20
+#     }
+# ]
 
 @app.get("/")
 def home():
@@ -36,12 +36,15 @@ def health():
 
 @app.get("/products")
 def get_products():
+    products = get_all_products()
     return jsonify(products), 200
 
 @app.get("/product/<int:product_id>")
 def getproduct(product_id):
-    for product in products:
-        if product["id"] == product_id:
+    product = get_product_by_id(product_id)
+    # for product in products:
+    #     if product["id"] == product_id:
+    if product is not None:
             return jsonify(product), 200
     return jsonify({"error": "Product not found"}), 404
 
