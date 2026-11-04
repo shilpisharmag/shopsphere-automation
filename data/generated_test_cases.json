@@ -1,0 +1,94 @@
+{
+  "test_cases": [
+    {
+      "test_case_id": "TC001",
+      "title": "Retrieve existing product by valid ID",
+      "method": "GET",
+      "endpoint": "/product/1",
+      "input": {
+        "product_id": 1
+      },
+      "expected_status": 200,
+      "expected_response": {
+        "id": 1,
+        "name": "Product Name",
+        "price": 29.99,
+        "stock": 100,
+        "error": null
+      },
+      "test_type": "positive"
+    },
+    {
+      "test_case_id": "TC002",
+      "title": "Retrieve product by non-existing ID",
+      "method": "GET",
+      "endpoint": "/product/999",
+      "input": {
+        "product_id": 999
+      },
+      "expected_status": 404,
+      "expected_response": {
+        "id": null,
+        "name": null,
+        "price": null,
+        "stock": null,
+        "error": "Product not found"
+      },
+      "test_type": "negative"
+    },
+    {
+      "test_case_id": "TC003",
+      "title": "Retrieve product with non-integer ID",
+      "method": "GET",
+      "endpoint": "/product/abc",
+      "input": {
+        "product_id": "abc"
+      },
+      "expected_status": 404,
+      "expected_response": {
+        "id": null,
+        "name": null,
+        "price": null,
+        "stock": null,
+        "error": "Product not found"
+      },
+      "test_type": "negative"
+    },
+    {
+      "test_case_id": "TC004",
+      "title": "Retrieve product with boundary value ID (0)",
+      "method": "GET",
+      "endpoint": "/product/0",
+      "input": {
+        "product_id": 0
+      },
+      "expected_status": 404,
+      "expected_response": {
+        "id": null,
+        "name": null,
+        "price": null,
+        "stock": null,
+        "error": "Product not found"
+      },
+      "test_type": "negative"
+    },
+    {
+      "test_case_id": "TC005",
+      "title": "Retrieve product with boundary value ID (-1)",
+      "method": "GET",
+      "endpoint": "/product/-1",
+      "input": {
+        "product_id": -1
+      },
+      "expected_status": 404,
+      "expected_response": {
+        "id": null,
+        "name": null,
+        "price": null,
+        "stock": null,
+        "error": "Product not found"
+      },
+      "test_type": "negative"
+    }
+  ]
+}

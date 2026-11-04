@@ -7,12 +7,12 @@ GENERTATED_TESTCASE_SCHEMA = {
                "type": "array",
                "items":{
                    "type": "object",
-                   "Properties":{
+                   "properties":{
                        "test_case_id": {
-                           "type" : "String"
+                           "type" : "string"
                        },
                        "title":{
-                           "type": "String"
+                           "type": "string"
                        },
                        "method" : {
                            "type" : "string",
@@ -22,43 +22,60 @@ GENERTATED_TESTCASE_SCHEMA = {
                            "type" : "string",
                        },
                        "input" : {
-
                            "type" : "object",
                            "properties" : {
                                "product_id" : {
-                                   "type" : ["integer", "String"]
+                                   "type" : ["integer", "string"]
                                }
-                           }
-                       },
-                       "required" : ["product_id"],
-                       "additional_properties" : False
-                   },
-                   "expected_status": {
-                       "type" : "integer",
-                       "enum" : [200,404]
-                   },
-                   "expected_response" : {
-                       "type" : "object"
-                   },
-                   "test_type" : {
-                       "type" : "string",
-                       "enum" : ["positive", "negative", "boundary"]
-                   }
-               },
-               "required":[
-                   "test_case_id",
-                   "title",
-                   "method",
-                   "endpoint",
-                   "input",
-                   "expected_status",
-                   "expected_response",
-                   "test_type"
-               ],
-               "additionalProperties" : False
+                           },
+                           "required" : ["product_id"],
+                           "additionalProperties" : False
+                       },   
+                       "expected_status": {
+                           "type" : "integer",
+                           "enum" : [200,404]
+                        },
+                        "expected_response" : {
+                             "type": "object",
+                             "properties": {
+                                   "id": {
+                                    "type": ["integer", "null"]
+                                    },
+                                    "name": {
+                                      "type": ["string", "null"]
+                                     },
+                                    "price": {
+                                       "type": ["number", "null"]
+                                    },
+                                    "stock": {
+                                        "type": ["integer", "null"]
+                                    },
+                                     "error": {
+                                        "type": ["string", "null"]
+                                    }
+                                },
+                                "required": ["id", "name", "price", "stock", "error"],
+                                "additionalProperties": False
+                         },
+                        "test_type" : {
+                            "type" : "string",
+                            "enum" : ["positive", "negative", "boundary"]
+                        }
+                    },
+                    "required":[
+                        "test_case_id",
+                        "title",
+                        "method",
+                        "endpoint",
+                        "input",
+                        "expected_status",
+                        "expected_response",
+                        "test_type"
+                    ],
+                    "additionalProperties" : False
+                }
            }
        },
        "required": ["test_cases"],
        "additionalProperties": False
-
-}
+    }   
