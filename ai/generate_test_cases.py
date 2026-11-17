@@ -7,6 +7,23 @@ from pathlib import Path
 
 MODEL= "gpt-4o-mini"
 
+def normalize_test_cases(test_cases):
+    """
+    Normalize generated cases where the requirement does not
+    specify an exact error message.
+    """
+
+    for test_case in test_cases.get("test_cases", []):
+        product_id = test_case.get("input",{}).get("product_id")
+        # Non-integer and negative IDs may trigger Flask's
+        # default 404 response. The exact message is not
+        # specified in the requirement.
+        if isinstance(product_id, str) or (
+            isinstance(product_id, int) and product_id < 0
+        ):
+            test_case.setdefault("expected_response", {})["error"] = None
+    return test_cases
+
 def generate_testcases():
     prompt=load_generation_prompt()
     client=OpenAI()
@@ -29,6 +46,13 @@ def generate_testcases():
 
 if __name__ == "__main__":
     test_cases = generate_testcases()
+    cases = test_cases.get("test_cases", [])
+
+    if len(cases) != 5:
+       raise ValueError(
+          f"Expected exactly 5 test cases, but received {len(cases)}"
+    )
+    test_cases = normalize_test_cases(test_cases)
     print(json.dumps(test_cases, indent=2))
     # genertatedTestcases = json.dumps(test_cases, indent=2)
     OUTPUT_PATH = Path("data/generated_test_cases.json")

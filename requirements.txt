@@ -8,3 +8,5 @@ allure-pytest
 faker
 jsonschema
 flask
+allure-pytest
+openai==3.42.1

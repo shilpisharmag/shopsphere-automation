@@ -11,9 +11,18 @@ def load_generation_prompt():
     """
     Load the API requirement and insert it into the prompt template.
     """
+    if not REQUIREMENT_PATH.exists():
+        raise FileNotFoundError(
+            f"Requirement file not found: {REQUIREMENT_PATH}"
+        )
+
+    if not PROMPT_PATH.exists():
+        raise FileNotFoundError(
+            f"Prompt file not found: {PROMPT_PATH}"
+        )
 
     requirement = REQUIREMENT_PATH.read_text(encoding="utf-8")
-    prompt_template = PROMPT_PATH.read_text(encoding="utf=8")
+    prompt_template = PROMPT_PATH.read_text(encoding="utf-8")
 
     prompt = prompt_template.replace("{{requirement}}", requirement)
     return prompt

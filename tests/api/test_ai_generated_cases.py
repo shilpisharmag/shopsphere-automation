@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 import pytest, requests
 
-BASE_URL = "http://127.0.0.1:5000"
+BASE_URL = "http://127.0.0.1:5001"
 
 TEST_CASES_PATH = (
     Path(__file__).resolve().parents[2]
@@ -13,6 +13,10 @@ TEST_CASES_PATH = (
 
 with TEST_CASES_PATH.open(encoding="utf-8") as file:
     generated_data = json.load(file)
+
+assert len(generated_data["test_cases"]) == 5, (
+    f"Expected 5 test cases, got {len(generated_data['test_cases'])}"
+)
 
 
 @pytest.mark.parametrize("test_case",

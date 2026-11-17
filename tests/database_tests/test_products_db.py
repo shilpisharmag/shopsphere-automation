@@ -25,10 +25,13 @@ def test_product_price_and_stock_are_valid():
 
 def create_test_database(tmp_path):
     """Create an isolated database for constraint testing."""
+    # Step 1: Build a path for an isolated database
     db_path = tmp_path / "test_shopsphere.db"
 
+    # Step 2: Connect to the database
     connection = sqlite3.connect(db_path)
 
+    # Step 3: Create the products table with constraints
     connection.execute("""
         CREATE TABLE products (
             id INTEGER PRIMARY KEY,
