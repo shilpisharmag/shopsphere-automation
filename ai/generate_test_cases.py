@@ -3,6 +3,7 @@ import json
 from openai import OpenAI
 from data.schemas.generated_test_cases_schema import GENERTATED_TESTCASE_SCHEMA
 from pathlib import Path
+from ai.validate_test_cases import validate_test_cases
 
 
 MODEL= "gpt-4o-mini"
@@ -18,6 +19,14 @@ def normalize_test_cases(test_cases):
         # Non-integer and negative IDs may trigger Flask's
         # default 404 response. The exact message is not
         # specified in the requirement.
+
+        expected_response = test_case.setdefault(
+            "expected_response", {}
+        )
+
+        if product_id == 1:
+            expected_response["id"] = 1
+
         if isinstance(product_id, str) or (
             isinstance(product_id, int) and product_id < 0
         ):
@@ -46,18 +55,31 @@ def generate_testcases():
 
 if __name__ == "__main__":
     test_cases = generate_testcases()
-    cases = test_cases.get("test_cases", [])
 
-    if len(cases) != 5:
-       raise ValueError(
-          f"Expected exactly 5 test cases, but received {len(cases)}"
-    )
+    # Normalize generated test cases
     test_cases = normalize_test_cases(test_cases)
+    print("\nGenerated scenario details:")
+
+    for case in test_cases.get("test_cases", []):
+        print(
+            case["test_case_id"],
+            "| Product ID:", repr(case["input"]["product_id"]),
+            "| Status:", case["expected_status"],
+            "| Type:", case["test_type"]
+        )
+
+    # Validate test case count and scenario correctness
+    validate_test_cases(test_cases)
+
+    # Display generated test cases
     print(json.dumps(test_cases, indent=2))
-    # genertatedTestcases = json.dumps(test_cases, indent=2)
+
+    # Save generated test cases
     OUTPUT_PATH = Path("data/generated_test_cases.json")
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
     with OUTPUT_PATH.open("w", encoding="utf-8") as file:
         json.dump(test_cases, file, indent=2)
+
     print(f"Test cases saved to: {OUTPUT_PATH}")
 

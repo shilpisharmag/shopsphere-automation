@@ -37,5 +37,12 @@ Rules:
 - Boundary scenarios must describe the input boundary, not assume a successful response.
 - For non-integer IDs and negative IDs, do not assume the error message.Use null for the expected_response.error field unless the requirement, explicitly specifies the message.
 
+IMPORTANT:
+- Product ID 1 is an existing product in the ShopSphere database.
+- Use product ID 1 for the positive test case.
+- Do not generate random product IDs for positive scenarios.
+- Do not assume any other product ID exists unless explicitly
+  confirmed by the requirement.
+
 Requirement:
 {{requirement}}

@@ -11,20 +11,20 @@
       "expected_status": 200,
       "expected_response": {
         "id": 1,
-        "name": "Laptop",
-        "price": 75000,
-        "stock": 10,
+        "name": null,
+        "price": null,
+        "stock": null,
         "error": null
       },
       "test_type": "positive"
     },
     {
       "test_case_id": "TC002",
-      "title": "Retrieve product using non-existing numeric ID",
+      "title": "Retrieve product by non-existing numeric ID",
       "method": "GET",
-      "endpoint": "/product/999",
+      "endpoint": "/product/9999",
       "input": {
-        "product_id": 999
+        "product_id": 9999
       },
       "expected_status": 404,
       "expected_response": {
@@ -38,7 +38,7 @@
     },
     {
       "test_case_id": "TC003",
-      "title": "Retrieve product using non-integer ID",
+      "title": "Retrieve product by non-integer ID",
       "method": "GET",
       "endpoint": "/product/abc",
       "input": {
@@ -56,7 +56,7 @@
     },
     {
       "test_case_id": "TC004",
-      "title": "Retrieve product using ID 0",
+      "title": "Retrieve product by zero ID",
       "method": "GET",
       "endpoint": "/product/0",
       "input": {
@@ -74,7 +74,7 @@
     },
     {
       "test_case_id": "TC005",
-      "title": "Retrieve product using negative ID",
+      "title": "Retrieve product by negative ID",
       "method": "GET",
       "endpoint": "/product/-1",
       "input": {
@@ -88,7 +88,7 @@
         "stock": null,
         "error": null
       },
-      "test_type": "negative"
+      "test_type": "boundary"
     }
   ]
 }
