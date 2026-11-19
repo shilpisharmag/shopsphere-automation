@@ -72,6 +72,15 @@ jobs:
                -v \
                --alluredir=allure-results \
                --clean-alluredir
+
+            - name: Run AI-generated API tests
+              env: 
+                # SHOPSPHERE_API_URL: http://127.0.0.1:5000
+                SHOPSPHERE_API_URL: http://127.0.0.1:5001 # for Docker test
+              run: |
+               pytest tests/api/test_ai_generated_cases.py  -v \
+               -v \
+               --alluredir=allure-results
             
             - name: Run Shopsphere Integration tests
               env:
@@ -82,8 +91,7 @@ jobs:
               run: |
                pytest tests/integration/ -v \
                -v \
-               --alluredir=allure-results \
-               --clean-alluredir
+               --alluredir=allure-results
 
             - name: Set up Node.js for Allure
               if: always()
