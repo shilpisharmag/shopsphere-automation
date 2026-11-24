@@ -37,23 +37,25 @@ jobs:
                  STANDARD_PASSWORD: ${{secrets.STANDARD_PASSWORD}}
               run: python -m tests.auth.setup_auth
 
-            - name: Start Shopsphere API
+            - name: Build ShopSphere Docker image
+              run: docker build -t shopsphere-api:1.0 .
+            - name: Start ShopSphere container
               run: |
-               nohup python -m api.app > shopsphere.log 2>&1 &
-               for i in {1..30}; do
-                  if curl -fsS http://127.0.0.1:5000/health; then
-                     echo "ShopSphere API is ready"
-                     exit 0
+                docker run -d \
+                  --name shopsphere-api \
+                  -p 5001:5000 \
+                  shopsphere-api:1.0
+
+                for i in {1..30}; do
+                  if curl -fsS http://127.0.0.1:5001/health; then
+                    echo "ShopSphere API is ready"
+                    exit 0
                   fi
-                   sleep 2
+                  sleep 2
                 done
-                
-                curl -fsS http://127.0.0.1:5000/health
-                echo "ShopSphere API failed to start. Startup log:"
-                cat shopsphere.log
 
-
-
+                docker logs shopsphere-api
+                exit 1
             
             - name: Run Tests
               env:

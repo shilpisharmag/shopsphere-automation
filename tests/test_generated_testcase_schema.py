@@ -7,7 +7,7 @@ def test_valid_generated_testcase_matches_schema():
     generated_output = {
         "test_cases" :[
             {
-                "testcase_id": 101,
+                "test_case_id": "TC001",
                 "title": "Retrieve an existing product",
                 "method": "GET",
                 "endpoint": "/product/1",
@@ -19,7 +19,8 @@ def test_valid_generated_testcase_matches_schema():
                     "id": 1,
                     "name": "Laptop",
                     "price": 75000,
-                    "stock": 10
+                    "stock": 10,
+                    "error": None
                 },
                 "test_type": "positive"
 
@@ -31,7 +32,7 @@ def test_valid_generated_testcase_matches_schema():
 
 def test_schema_rejects_missing_test_case_id():
         invalid_output = {
-              "testcases" : [
+              "test_cases" : [
                     {
                            "title": "Retrieve an existing product",
                             "method": "GET",
@@ -44,7 +45,8 @@ def test_schema_rejects_missing_test_case_id():
                             "id": 1,
                             "name": "Laptop",
                             "price": 75000,
-                            "stock": 10
+                            "stock": 10,
+                            "error": None
                             },
                             "test_type": "positive"
                     }
