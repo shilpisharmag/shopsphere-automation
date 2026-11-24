@@ -53,14 +53,13 @@ jobs:
                   fi
                   sleep 2
                 done
-
                 docker logs shopsphere-api
                 exit 1
             
             - name: Run Tests
               env:
-                SHOPSPHERE_API_URL: http://127.0.0.1:5000
-                SHOPSPHERE_UI_URL: http://127.0.0.1:5000
+                SHOPSPHERE_API_URL: http://127.0.0.1:5001
+                SHOPSPHERE_UI_URL: http://127.0.0.1:5001
                 STANDARD_USERNAME: ${{secrets.STANDARD_USERNAME}}
                 STANDARD_PASSWORD: ${{secrets.STANDARD_PASSWORD}}
               run:
