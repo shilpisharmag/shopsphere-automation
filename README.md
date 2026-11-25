@@ -1,7 +1,10 @@
 # ShopSphere – AI-Assisted API & UI Test Automation Framework
 
-[![ShopSphere Automation Tests](https://github.com/shilpisharmag/shopsphere-automation/actions/workflows/shopsphere-tests.yml)
-[![Playwright Tests](https://github.com/shilpisharmag/shopsphere-automation/actions/workflows/playwright.yml)
+
+[![ShopSphere Automation Tests](https://github.com/shilpisharmag/shopsphere-automation/actions/workflows/shopsphere-tests.yml/badge.svg)](https://github.com/shilpisharmag/shopsphere-automation/actions/workflows/shopsphere-tests.yml)
+
+[![Playwright Tests](https://github.com/shilpisharmag/shopsphere-automation/actions/workflows/playwright.yml/badge.svg)](https://github.com/shilpisharmag/shopsphere-automation/actions/workflows/playwright.yml)
+
 
 ## Project Overview
 
